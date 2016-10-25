@@ -2,159 +2,113 @@
 
 return [
 
-    'default' => [
+    /*
+    |--------------------------------------------------------------------------
+    | Default Server Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default server configuration (see below)
+    | that should be used by Laravel Glide.
+    |
+    */
 
-         /*
-         |--------------------------------------------------------------------------
-         | Source Filesystem
-         |--------------------------------------------------------------------------
-         |
-         | Please specify source filesystem (local or s3).
-         |
-         */
-        'source' => 'local',
+    'default' => 'images',
 
-         /*
-         |--------------------------------------------------------------------------
-         | Source Path Prefix
-         |--------------------------------------------------------------------------
-         |
-         | This is a path where source files will be stored.
-         |
-         */
-        'source_path_prefix' => '/uploads',
+    /*
+     |--------------------------------------------------------------------------
+     | Configurations Servers
+     |--------------------------------------------------------------------------
+     |
+     | Here you may configure as many server configuration as you wish.
+     |
+     */
 
-         /*
-         |--------------------------------------------------------------------------
-         | Cache Filesystem
-         |--------------------------------------------------------------------------
-         |
-         | Please specify cache filesystem (local or s3).
-         |
-         */
-        'cache' => 'local',
+    'servers' => [
 
-         /*
-         |--------------------------------------------------------------------------
-         | Cache Path Prefix
-         |--------------------------------------------------------------------------
-         |
-         | This is a path where cache files will be stored.
-         |
+        /*
+         * Images server's configuration.
          */
-        'cache_path_prefix' => '/uploads/.cache',
+        'images' => [
 
-         /*
-         |--------------------------------------------------------------------------
-         | Watermarks Filesystem
-         |--------------------------------------------------------------------------
-         |
-         | Please specify watermarks filesystem (local or s3).
-         |
-         */
-        'watermarks' => 'local',
+            # Source filesystem
+            'source' => 'local',
 
-         /*
-         |--------------------------------------------------------------------------
-         | Watermarks Path Prefix
-         |--------------------------------------------------------------------------
-         |
-         | This is a path where watermarks will be stored.
-         |
-         */
-        'watermarks_path_prefix' => '/watermarks',
+            # Source filesystem path prefix
+            'source_path_prefix' => '/images',
 
-         /*
-         |--------------------------------------------------------------------------
-         | Driver
-         |--------------------------------------------------------------------------
-         |
-         | Select a driver (gd or imagick).
-         |
-         */
-        'driver' => 'gd',
+            # Cache filesystem
+            'cache' => 'local',
 
-         /*
-         |--------------------------------------------------------------------------
-         | Max Image Size
-         |--------------------------------------------------------------------------
-         |
-         | Set a reasonable max image size, so that manipulated images don't
-         | go over a certain limit.
-         |
-         */
-        'max_image_size' => 2000*2000,
+            # Cache filesystem path prefix
+            'cache_path_prefix' => '/images/cache',
 
-         /*
-         |--------------------------------------------------------------------------
-         | Secure Urls
-         |--------------------------------------------------------------------------
-         |
-         | If set to true, signed URLs will be generated as a security measure.
-         |
-         */
-        'secure_urls' => true,
+            # Watermarks filesystem
+            'watermarks' => 'local',
 
-         /*
-         |--------------------------------------------------------------------------
-         | Sign Key
-         |--------------------------------------------------------------------------
-         |
-         | A 128 character (or longer) signing key is recommended.
-         |
-         */
-        'sign_key' => env('APP_KEY', 'SomeRandomString'),
+            # Watermarks filesystem path prefix
+            'watermarks_path_prefix' => '/watermarks',
 
-         /*
-         |--------------------------------------------------------------------------
-         | Url Prefix
-         |--------------------------------------------------------------------------
-         |
-         | This is a string that will be visible in all generated URLs. Example:
-         |
-         | /imgcache/56a1472beca5d.jpg
-         |
-         */
-        'url_prefix' => 'imgcache',
+            # Image driver (gd or imagick)
+            'driver' => env('GLIDE_IMAGE_DRIVER', 'gd'),
 
-         /*
-         |--------------------------------------------------------------------------
-         | Route Name
-         |--------------------------------------------------------------------------
-         |
-         | The route name.
-         |
-         */
-        'route_name' => 'laravel-clyde',
+            # Image size limit
+            'max_image_size' => 2000*2000,
 
-         /*
-         |--------------------------------------------------------------------------
-         | Presets
-         |--------------------------------------------------------------------------
-         |
-         | You can setup various presets to simplify manipulation of images.
-         |
-         | For a full documentation of Image API see:
-         | http://glide.thephpleague.com/1.0/api/quick-reference/
-         |
-         */
-        'presets' => [
-            'small' => [
-                'w' => 400,
-                'h' => 300,
-                'fit' => 'crop'
+            # Secure your Glide image server with HTTP signatures.
+            'signatures' => true,
+
+            # Sign Key - A 128 character (or larger) signing key is recommended.
+            'sign_key' => env('GLIDE_SIGN_KEY', 'v-LK3AJdhcfcc%jt*VC2cj%nVpu+xQKvLUB%H86kRVk_4bgG8&CWM#k*b_7MLKpmTc=4GFmKFp7=K%67je-azeC5vz+r#xT?62tT?Aw%FtQ5Q2gvnwHTwqhxUh89wFr_'),
+
+            # Base URL of the images
+            'base_url' => '',
+
+            # Default image manipulations
+            # see http://glide.thephpleague.com/1.0/config/defaults-and-presets/
+            'defaults' => [
+                // Examples:
+                // 'mark' => 'logo.png',
+                // 'markw' => '30w',
+                // 'markpad' => '5w',
             ],
-            'medium' => [
-                'w' => 800,
-                'h' => 600,
-                'fit' => 'crop'
-            ],
-            'large' => [
-                'w' => 1600,
-                'h' => 1200,
-                'fit' => 'crop'
+
+            # Preset image manipulations
+            # see http://glide.thephpleague.com/1.0/config/defaults-and-presets/
+            'presets' => [
+                // Examples:
+                // 'small' => [
+                //     'w' => 200,
+                //     'h' => 200,
+                //     'fit' => 'crop',
+                // ],
+                // 'medium' => [
+                //     'w' => 600,
+                //     'h' => 400,
+                //     'fit' => 'crop',
+                // ]
             ]
-        ]
-    ],
+        ],
 
+        /*
+         * Avatars server's configuration.
+         */
+        'avatar' => [
+
+            'source' => 'local',
+
+            'source_path_prefix' => '/avatars',
+
+            'cache' => 'local',
+
+            'cache_path_prefix' => '/avatars/cache',
+
+            'driver' => env('GLIDE_IMAGE_DRIVER', 'gd'),
+
+            'max_image_size' => 2000*2000,
+
+            'signatures' => true,
+
+            'sign_key' => env('GLIDE_SIGN_KEY', 'v-LK3AJdhcfcc%jt*VC2cj%nVpu+xQKvLUB%H86kRVk_4bgG8&CWM#k*b_7MLKpmTc=4GFmKFp7=K%67je-azeC5vz+r#xT?62tT?Aw%FtQ5Q2gvnwHTwqhxUh89wFr_'),
+        ],
+    ]
 ];
