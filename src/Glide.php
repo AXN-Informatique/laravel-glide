@@ -3,6 +3,7 @@
 namespace Axn\LaravelGlide;
 
 use League\Glide\Signatures\SignatureFactory;
+use League\Glide\Urls\UrlBuilderFactory;
 
 class Glide
 {
@@ -73,9 +74,9 @@ class Glide
      * @param array $params
      * @return
      */
-    public function imageResponse($path, array $params = [])
+    public function imageResponse($path, array $params = [], $skipValidation = false)
     {
-        $this->validateRequest($path, $params);
+        $this->validateRequest($path, $params, $skipValidation);
 
         return $this->server->getImageResponse($path, $params);
     }
@@ -87,9 +88,9 @@ class Glide
      * @param array $params
      * @return string
      */
-    public function imageAsBase64($path, array $params = [])
+    public function imageAsBase64($path, array $params = [], $skipValidation = false)
     {
-        $this->validateRequest($path, $params);
+        $this->validateRequest($path, $params, $skipValidation);
 
         return $this->server->getImageAsBase64($path, $params);
     }
@@ -100,9 +101,9 @@ class Glide
      * @param string $path
      * @param array $params
      */
-    public function outputImage($path, array $params = [])
+    public function outputImage($path, array $params = [], $skipValidation = false)
     {
-        $this->validateRequest($path, $params);
+        $this->validateRequest($path, $params, $skipValidation);
 
         return $this->server->outputImage($path, $params);
     }
@@ -113,10 +114,26 @@ class Glide
      * @param  string
      * @param  array
      */
-    protected function validateRequest($path, array $params = [])
+    public function validateRequest($path, array $params = [], $skipValidation = false)
     {
-        if ($this->config['signatures']) {
+        if ($this->config['signatures'] && !$skipValidation) {
             SignatureFactory::create($this->config['sign_key'])->validateRequest($path, $params);
         }
+    }
+
+    public function url($path, array $params = [])
+    {
+        $urlBuilder = UrlBuilderFactory::create($this->config['base_url'], $this->config['sign_key']);
+
+        return $urlBuilder->getUrl($path, $params);
+    }
+
+    public function route($name, $parameters, array $params = [])
+    {
+        $path = app('url')->route($name, $parameters, false);
+
+        $urlBuilder = UrlBuilderFactory::create($this->config['base_url'], $this->config['sign_key']);
+
+        return $urlBuilder->getUrl($path, $params);
     }
 }

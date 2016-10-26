@@ -83,6 +83,22 @@ class ServersManager
     {
         $config = $this->getConfig($name);
 
+        if (empty($config)) {
+            throw new \Exception("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
+        }
+
+        $source = $config['source'];
+
+        if (array_key_exists($source, $this->app['config']['filesystems']['disks'])) {
+            $config['source'] =  $this->app['filesystem']->disk($config['source'])->getDriver();
+        }
+
+        $cache = $config['cache'];
+
+        if (array_key_exists($cache, $this->app['config']['filesystems']['disks'])) {
+            $config['cache'] =  $this->app['filesystem']->disk($config['cache'])->getDriver();
+        }
+
         $instance = ServerFactory::create(
             $config +
             [

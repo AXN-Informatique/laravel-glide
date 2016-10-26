@@ -46,3 +46,39 @@ Publish the config file of the package using artisan:
 ```
 php artisan vendor:publish --provider="Axn\LaravelGlide\ServiceProvider"
 ```
+
+You can configure multiples servers.
+
+Create a route for each server you have configured:
+
+```
+Route::get('img/{path}', [
+    'as' => 'image',
+    'uses' => 'ImagesController@index'
+])->where('path', '(.*)');
+```
+
+Create corresponding controllers:
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Glide;
+use Illuminate\Http\Request;
+
+class ImagesController extends Controller
+{
+    public function index($path, Request $request)
+    {
+        return Glide::imageResponse($path, $request->all());
+    }
+}
+```
+
+Add images to your views:
+
+```
+<img src="{{ Glide::route('image', 'example.jpg', ['w' => 300, 'fit' => 'drop']) }}" class="img-thumbnail img-responsive">
+```
