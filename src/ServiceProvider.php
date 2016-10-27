@@ -17,17 +17,15 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/glide.php', 'glide');
 
-        $this->app->singleton('glide.server', function () {
-            return new ServersManager($this->app);
-        });
-
-        $this->app->singleton('glide', function () {
-            return new Glide($this->app, $this->app['glide.server']);
+        // The server manager is used to resolve various servers, since multiple
+        // servers might be managed.
+        $this->app->singleton('glide', function ($app) {
+            return new ServerManager($app);
         });
     }
 
     public function provides()
     {
-        return ['glide', 'glide.server'];
+        return ['glide'];
     }
 }

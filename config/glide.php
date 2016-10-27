@@ -3,25 +3,25 @@
 return [
 
     /*
-     |--------------------------------------------------------------------------
-     | Default Server Configuration
-     |--------------------------------------------------------------------------
-     |
-     | Here you may specify the default server configuration (see below)
-     | that should be used by Laravel Glide.
-     |
-     */
+    |--------------------------------------------------------------------------
+    | Default Server Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default server configuration (see below)
+    | that should be used by Laravel Glide.
+    |
+    */
 
     'default' => 'images',
 
     /*
-     |--------------------------------------------------------------------------
-     | Configurations Servers
-     |--------------------------------------------------------------------------
-     |
-     | Here you may configure as many server configuration as you wish.
-     |
-     */
+    |--------------------------------------------------------------------------
+    | Configurations Servers
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure as many server configuration as you wish.
+    |
+    */
 
     'servers' => [
 
@@ -92,15 +92,15 @@ return [
         /*
          * Avatars server's configuration.
          */
-        'avatar' => [
+        'avatars' => [
 
             'source' => 'local',
 
-            'source_path_prefix' => '/users/avatar',
+            'source_path_prefix' => '/users/avatars',
 
             'cache' => 'local',
 
-            'cache_path_prefix' => '/users/avatar/cache',
+            'cache_path_prefix' => '/users/avatars/cache',
 
             'driver' => env('GLIDE_IMAGE_DRIVER', 'gd'),
 

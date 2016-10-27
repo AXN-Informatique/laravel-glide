@@ -2,6 +2,7 @@ Laravel Glide
 =============
 
 This package provides a Service Provider that allows you to very easily integrate Glide into a Laravel project.
+Moreover, multiple servers can be configured.
 
 Glide is a easy on-demand image manipulation library written in PHP. It's part of the League of Extraordinary Packages.
 
@@ -38,7 +39,6 @@ If you intend to use facade, install those as well:
     'Glide' => Axn\LaravelGlide\Facade::class,
     ...
 ];
-
 ```
 
 Publish the config file of the package using artisan:
@@ -47,18 +47,22 @@ Publish the config file of the package using artisan:
 php artisan vendor:publish --provider="Axn\LaravelGlide\ServiceProvider"
 ```
 
-You can configure multiples servers.
+Usage
+-----
 
 Create a route for each server you have configured:
 
 ```
-Route::get('img/{path}', [
-    'as' => 'image',
-    'uses' => 'ImagesController@index'
+Route::get(Glide::server('images')->getBaseUrl().'/{path}', [
+    'uses' => 'GlideController@images'
+])->where('path', '(.*)');
+
+Route::get(Glide::server('avatars')->getBaseUrl().'/{path}', [
+    'uses' => 'GlideController@avatars'
 ])->where('path', '(.*)');
 ```
 
-Create corresponding controllers:
+Create corresponding controllers/actions:
 
 ```
 <?php
@@ -68,17 +72,26 @@ namespace App\Http\Controllers;
 use Glide;
 use Illuminate\Http\Request;
 
-class ImagesController extends Controller
+class GlideController extends Controller
 {
-    public function index($path, Request $request)
+    public function images($path, Request $request)
     {
-        return Glide::imageResponse($path, $request->all());
+        return Glide::server('images')->imageResponse($path, $request->all());
+    }
+
+    public function avatars($path, Request $request)
+    {
+        return Glide::server('avatars')->imageResponse($path, $request->all());
     }
 }
 ```
 
-Add images to your views:
+Add image to your views:
 
 ```
-<img src="{{ Glide::route('image', 'example.jpg', ['w' => 300, 'fit' => 'drop']) }}" class="img-thumbnail img-responsive">
+<!-- From default server -->
+<img src="{{ Glide::url('example1.jpg', ['w' => 300, 'fit' => 'drop']) }}">
+
+<!-- From "avatars" server -->
+<img src="{{ Glide::server('avatars')->url('example2.jpg', ['w' => 300, 'fit' => 'drop']) }}">
 ```

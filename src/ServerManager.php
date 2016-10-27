@@ -2,15 +2,16 @@
 
 namespace Axn\LaravelGlide;
 
+use Illuminate\Contracts\Foundation\Application;
 use League\Glide\ServerFactory;
 use League\Glide\Responses\LaravelResponseFactory;
 
-class ServersManager
+class ServerManager
 {
     /**
      * The application instance.
      *
-     * @var \Illuminate\Contracts\Foundation\Application
+     * @var Application
      */
     protected $app;
 
@@ -22,12 +23,12 @@ class ServersManager
     protected $servers = [];
 
     /**
-     * Create a new servers manager instance.
+     * Create a new server manager instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return voide
+     * @param  Application  $app
+     * @return void
      */
-    public function __construct($app)
+    public function __construct(Application $app)
     {
         $this->app = $app;
     }
@@ -35,51 +36,29 @@ class ServersManager
     /**
      * Get a server instance.
      *
-     * @param  string  $name
-     * @return \League\Glide\Server
+     * @param  string|null  $name
+     * @return GlideServer
      */
     public function server($name = null)
     {
-        $name = $name ?: $this->getDefaultServer();
+        if (empty($name)) {
+            $name = $this->getDefaultServerName();
+        }
 
-        return $this->get($name)['instance'];
-    }
-
-    /**
-     * Get a server configuration.
-     *
-     * @param  string  $name
-     * @return array
-     */
-    public function config($name = null)
-    {
-        $name = $name ?: $this->getDefaultServer();
-
-        return $this->get($name)['config'];
-    }
-
-    /**
-     * Attempt to get the server instance and configuration from the local cache.
-     *
-     * @param  string  $name
-     * @return array
-     */
-    protected function get($name)
-    {
         if (!isset($this->servers[$name])) {
-            $this->instanciate($name);
+            $this->servers[$name] = $this->makeServer($name);
         }
 
         return $this->servers[$name];
     }
 
     /**
-     * Instanciate the given server.
+     * Make the server instance.
      *
      * @param  string  $name
-     * @return void
+     * @return GlideServer
      */
-    protected function instanciate($name)
+    protected function makeServer($name)
     {
         $config = $this->getConfig($name);
 
@@ -99,21 +78,17 @@ class ServersManager
             $config['cache'] =  $this->app['filesystem']->disk($config['cache'])->getDriver();
         }
 
-        $instance = ServerFactory::create(
-            $config +
-            [
+        $server = ServerFactory::create(
+            $config + [
                 'response' => new LaravelResponseFactory($this->app['request'])
             ]
         );
 
-        $this->servers[$name] = [
-            'config' => $config,
-            'instance' => $instance
-        ];
+        return new GlideServer($config, $server);
     }
 
     /**
-     * Get the filesystem connection configuration.
+     * Get the server configuration.
      *
      * @param  string  $name
      * @return array
@@ -128,8 +103,20 @@ class ServersManager
      *
      * @return string
      */
-    public function getDefaultServer()
+    public function getDefaultServerName()
     {
         return $this->app['config']['glide.default'];
+    }
+
+    /**
+     * Dynamically pass methods to the default server.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return call_user_func_array([$this->server(), $method], $parameters);
     }
 }
