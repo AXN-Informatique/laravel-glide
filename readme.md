@@ -53,11 +53,11 @@ Usage
 Create a route for each server you have configured:
 
 ```
-Route::get(Glide::server('images')->getBaseUrl().'/{path}', [
+Route::get(config('glide.servers.images.base_url').'/{path}', [
     'uses' => 'GlideController@images'
 ])->where('path', '(.*)');
 
-Route::get(Glide::server('avatars')->getBaseUrl().'/{path}', [
+Route::get(config('glide.servers.avatars.base_url').'/{path}', [
     'uses' => 'GlideController@avatars'
 ])->where('path', '(.*)');
 ```

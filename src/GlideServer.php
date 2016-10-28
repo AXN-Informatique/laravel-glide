@@ -2,12 +2,22 @@
 
 namespace Axn\LaravelGlide;
 
+use Illuminate\Contracts\Foundation\Application;
+use League\Glide\Responses\LaravelResponseFactory;
+use League\Glide\ServerFactory;
+use League\Glide\Server;
 use League\Glide\Signatures\SignatureFactory;
 use League\Glide\Urls\UrlBuilderFactory;
-use League\Glide\Server as LeagueGlideServer;
 
 class GlideServer
 {
+    /**
+     * The application instance.
+     *
+     * @var Application
+     */
+    protected $app;
+
     /**
      * Server configuration.
      *
@@ -16,7 +26,7 @@ class GlideServer
     protected $config;
 
     /**
-     * The server instance.
+     * The league glide server instance.
      *
      * @var LeagueGlideServer
      */
@@ -29,11 +39,39 @@ class GlideServer
      * @param  LeagueGlideServer $server
      * @return void
      */
-    public function __construct($config, LeagueGlideServer $server)
+    public function __construct(Application $app, array $config)
     {
-        $this->config = $config;
+        $this->app = $app;
 
-        $this->server = $server;
+        $this->config = $config;
+    }
+
+    /**
+     * Return the configuration for this glide server.
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Return the league glide server instance for this glide server.
+     *
+     * @return \League\Glide\Server
+     */
+    public function getLeagueGlideServer()
+    {
+        if (null === $this->server) {
+            $config = $this->config + [
+                'response' => new LaravelResponseFactory($this->app['request'])
+            ];
+
+            $this->server = ServerFactory::create($config);
+        }
+
+        return $this->server;
     }
 
     /**
@@ -48,7 +86,7 @@ class GlideServer
     {
         $this->validateRequest($path, $params, $skipValidation);
 
-        return $this->server->getImageResponse($path, $params);
+        return $this->getLeagueGlideServer()->getImageResponse($path, $params);
     }
 
     /**
@@ -63,7 +101,7 @@ class GlideServer
     {
         $this->validateRequest($path, $params, $skipValidation);
 
-        return $this->server->getImageAsBase64($path, $params);
+        return $this->getLeagueGlideServer()->getImageAsBase64($path, $params);
     }
 
     /**
@@ -78,7 +116,7 @@ class GlideServer
     {
         $this->validateRequest($path, $params, $skipValidation);
 
-        $this->server->outputImage($path, $params);
+        $this->getLeagueGlideServer()->outputImage($path, $params);
     }
 
     /**
@@ -95,7 +133,7 @@ class GlideServer
             return;
         }
 
-        $path = $this->config['base_url'].'/'.trim($path, '/');
+        $path = $this->config['base_url'] . '/' . trim($path, '/');
 
         SignatureFactory::create($this->config['sign_key'])->validateRequest($path, $params);
     }
@@ -123,6 +161,6 @@ class GlideServer
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->server, $method], $parameters);
+        return call_user_func_array([$this->getLeagueGlideServer(), $method], $parameters);
     }
 }

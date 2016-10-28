@@ -3,8 +3,6 @@
 namespace Axn\LaravelGlide;
 
 use Illuminate\Contracts\Foundation\Application;
-use League\Glide\ServerFactory;
-use League\Glide\Responses\LaravelResponseFactory;
 
 class ServerManager
 {
@@ -63,28 +61,22 @@ class ServerManager
         $config = $this->getConfig($name);
 
         if (empty($config)) {
-            throw new \Exception("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
+            throw new \InvalidArgumentException("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
         }
 
-        $source = $config['source'];
-
-        if (array_key_exists($source, $this->app['config']['filesystems']['disks'])) {
+        if (array_key_exists($config['source'], $this->app['config']['filesystems']['disks'])) {
             $config['source'] =  $this->app['filesystem']->disk($config['source'])->getDriver();
         }
 
-        $cache = $config['cache'];
-
-        if (array_key_exists($cache, $this->app['config']['filesystems']['disks'])) {
+        if (array_key_exists($config['cache'], $this->app['config']['filesystems']['disks'])) {
             $config['cache'] =  $this->app['filesystem']->disk($config['cache'])->getDriver();
         }
 
-        $server = ServerFactory::create(
-            $config + [
-                'response' => new LaravelResponseFactory($this->app['request'])
-            ]
-        );
+        if (isset($config['watermarks']) && array_key_exists($config['watermarks'], $this->app['config']['filesystems']['disks'])) {
+            $config['watermarks'] =  $this->app['filesystem']->disk($config['watermarks'])->getDriver();
+        }
 
-        return new GlideServer($config, $server);
+        return new GlideServer($this->app, $config);
     }
 
     /**
