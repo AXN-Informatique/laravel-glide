@@ -61,7 +61,7 @@ return [
             'sign_key' => env('GLIDE_SIGN_KEY', 'v-LK3AJdhcfcc%jt*VC2cj%nVpu+xQKvLUB%H86kRVk_4bgG8&CWM#k*b_7MLKpmTc=4GFmKFp7=K%67je-azeC5vz+r#xT?62tT?Aw%FtQ5Q2gvnwHTwqhxUh89wFr_'),
 
             # Base URL of the images
-            'base_url' => '/img/',
+            'base_url' => '/img',
 
             # Default image manipulations
             # see http://glide.thephpleague.com/1.0/config/defaults-and-presets/
@@ -96,11 +96,11 @@ return [
 
             'source' => 'local',
 
-            'source_path_prefix' => '/users/avatars',
+            'source_path_prefix' => '/avatars',
 
             'cache' => 'local',
 
-            'cache_path_prefix' => '/users/avatars/cache',
+            'cache_path_prefix' => '/avatars/cache',
 
             'driver' => env('GLIDE_IMAGE_DRIVER', 'gd'),
 
@@ -110,7 +110,7 @@ return [
 
             'sign_key' => env('GLIDE_SIGN_KEY', 'v-LK3AJdhcfcc%jt*VC2cj%nVpu+xQKvLUB%H86kRVk_4bgG8&CWM#k*b_7MLKpmTc=4GFmKFp7=K%67je-azeC5vz+r#xT?62tT?Aw%FtQ5Q2gvnwHTwqhxUh89wFr_'),
 
-            'base_url' => '/',
+            'base_url' => '/avatars',
         ],
     ]
 ];
