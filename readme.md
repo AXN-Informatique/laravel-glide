@@ -90,8 +90,8 @@ Add image to your views:
 
 ```
 <!-- From default server -->
-<img src="{{ Glide::url('example1.jpg', ['w' => 300, 'fit' => 'drop']) }}">
+<img src="{{ Glide::url('example1.jpg', ['w' => 500, 'h' => 300, 'fit' => 'crop']) }}">
 
 <!-- From "avatars" server -->
-<img src="{{ Glide::server('avatars')->url('example2.jpg', ['w' => 300, 'fit' => 'drop']) }}">
+<img src="{{ Glide::server('avatars')->url('example2.jpg', ['w' => 250, 'fit' => 'fill']) }}">
 ```
