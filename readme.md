@@ -15,35 +15,37 @@ Installation
 
 Install through composer:
 
-```
+```sh
 composer require axn/laravel-glide
 ```
 
 Add the service provider to the array of providers in `config/app.php`:
 
-```
+```php
 // config/app.php
+
 'provider' => [
-    ...
+    //...
     Axn\LaravelGlide\ServiceProvider::class,
-    ...
+    //...
 ];
 ```
 
 If you intend to use facade, install those as well:
 
-```
+```php
 // config/app.php
+
 'aliases' => [
-    ...
+    //...
     'Glide' => Axn\LaravelGlide\Facade::class,
-    ...
+    //...
 ];
 ```
 
 Publish the config file of the package using artisan:
 
-```
+```sh
 php artisan vendor:publish --provider="Axn\LaravelGlide\ServiceProvider"
 ```
 
@@ -52,7 +54,9 @@ Usage
 
 Create a route for each server you have configured:
 
-```
+```php
+// App/Http/routes.php
+
 Route::get(config('glide.servers.images.base_url').'/{path}', [
     'uses' => 'GlideController@images'
 ])->where('path', '(.*)');
@@ -64,7 +68,7 @@ Route::get(config('glide.servers.avatars.base_url').'/{path}', [
 
 Create corresponding controllers/actions:
 
-```
+```php
 <?php
 
 namespace App\Http\Controllers;
@@ -88,7 +92,7 @@ class GlideController extends Controller
 
 Add image to your views:
 
-```
+```blade
 <!-- From default server -->
 <img src="{{ Glide::url('example1.jpg', ['w' => 500, 'h' => 300, 'fit' => 'crop']) }}">
 
