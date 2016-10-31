@@ -1,9 +1,9 @@
 {
     "name" : "axn/laravel-glide",
     "description" : "league/glide wrapper for Laravel 5.1+",
-    "homepage" : "https://bitbucket.org/axn/laravel-glide",
+    "homepage" : "https://github.com/AXN-Informatique/laravel-glide",
     "support" : {
-        "issues" : "https://bitbucket.org/axn/laravel-glide/issues?status=new&status=open"
+        "issues" : "https://github.com/AXN-Informatique/laravel-glide/issues"
     },
     "authors" : [{
             "name" : "AXN Informatique",
