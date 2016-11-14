@@ -55,7 +55,6 @@ Modify the environment file by adding the following lines:
 GLIDE_IMAGE_DRIVER=gd
 GLIDE_SIGN_KEY=SetComplicatedSignKey
 ```
-3cDyOf7I6P4sU+ImVmIJW8k/IzGyoCACaJi+PbVY+I8=
 
 Obviously you have to adjust the values according to your environment.
 
