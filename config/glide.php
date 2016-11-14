@@ -58,7 +58,7 @@ return [
             'signatures' => true,
 
             # Sign Key - A 128 character (or larger) signing key is recommended.
-            'sign_key' => env('GLIDE_SIGN_KEY', 'v-LK3AJdhcfcc%jt*VC2cj%nVpu+xQKvLUB%H86kRVk_4bgG8&CWM#k*b_7MLKpmTc=4GFmKFp7=K%67je-azeC5vz+r#xT?62tT?Aw%FtQ5Q2gvnwHTwqhxUh89wFr_'),
+            'sign_key' => env('GLIDE_SIGN_KEY'),
 
             # Base URL of the images
             'base_url' => '/img',
@@ -108,7 +108,7 @@ return [
 
             'signatures' => true,
 
-            'sign_key' => env('GLIDE_SIGN_KEY', 'v-LK3AJdhcfcc%jt*VC2cj%nVpu+xQKvLUB%H86kRVk_4bgG8&CWM#k*b_7MLKpmTc=4GFmKFp7=K%67je-azeC5vz+r#xT?62tT?Aw%FtQ5Q2gvnwHTwqhxUh89wFr_'),
+            'sign_key' => env('GLIDE_SIGN_KEY'),
 
             'base_url' => '/avatars',
         ],

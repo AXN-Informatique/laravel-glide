@@ -49,6 +49,24 @@ Publish the config file of the package using artisan:
 php artisan vendor:publish --provider="Axn\LaravelGlide\ServiceProvider"
 ```
 
+Modify the environment file by adding the following lines:
+
+```
+GLIDE_IMAGE_DRIVER=gd
+GLIDE_SIGN_KEY=SetComplicatedSignKey
+```
+3cDyOf7I6P4sU+ImVmIJW8k/IzGyoCACaJi+PbVY+I8=
+
+Obviously you have to adjust the values according to your environment.
+
+The driver can be "gd" or "imagick".
+
+A 128 character (or larger) signing key is recommended. To help you do this, you can run the following command:
+
+```sh
+php artisan glide:key-generate
+```
+
 Usage
 -----
 

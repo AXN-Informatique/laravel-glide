@@ -3,6 +3,7 @@
 namespace Axn\LaravelGlide;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Axn\LaravelGlide\Console\Commands\GlideKeyGenerate;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -15,6 +16,8 @@ class ServiceProvider extends BaseServiceProvider
 
     public function register()
     {
+        $this->commands(GlideKeyGenerate::class);
+
         $this->mergeConfigFrom(__DIR__ . '/../config/glide.php', 'glide');
 
         // The server manager is used to resolve various servers, since multiple
