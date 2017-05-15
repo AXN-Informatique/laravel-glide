@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.2.0 (206-11-14)
------------------
+1.3.0 (2017-05-15)
+------------------
+
+- add support for Laravel 5.4
+- change composer constraints
+
+1.2.0 (2016-11-14)
+------------------
 
 - add console command to generate GLIDE_SIGN_KEY
 - remove default value for GLIDE_SIGN_KEY from config file
