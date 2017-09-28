@@ -12,12 +12,22 @@
     ],
     "license" : "MIT",
     "require" : {
-        "laravel/framework" : "5.2.*|5.3.*|5.4.*",
+        "laravel/framework" : "5.2.*|5.3.*|5.4.*|5.5.*",
         "league/glide-laravel" : "^1.0"
     },
     "autoload" : {
         "psr-4" : {
             "Axn\\LaravelGlide\\" : "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Axn\\LaravelGlide\\ServiceProvider"
+            ],
+            "aliases": {
+                "Glide": "Axn\\LaravelGlide\\Facade"
+            }
         }
     }
 }

@@ -19,7 +19,9 @@ Install through composer:
 composer require axn/laravel-glide
 ```
 
-Add the service provider to the array of providers in `config/app.php`:
+In Laravel 5.5 the service provider will automatically get registered.
+In older versions of the framework just add the service provider
+to the array of providers in `config/app.php`:
 
 ```php
 // config/app.php
@@ -31,7 +33,9 @@ Add the service provider to the array of providers in `config/app.php`:
 ];
 ```
 
-If you intend to use facade, install those as well:
+In Laravel 5.5 the facade will automatically get registered.
+In older versions of the framework just add the facade
+to the array of aliases in `config/app.php`:
 
 ```php
 // config/app.php
