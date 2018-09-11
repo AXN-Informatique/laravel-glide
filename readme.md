@@ -2,7 +2,7 @@ Laravel Glide
 =============
 
 This package provides a Service Provider that allows you to very easily integrate Glide into a Laravel project.
-Moreover, multiple servers can be configured.
+Moreover, **multiple servers** can be configured.
 
 Glide is a easy on-demand image manipulation library written in PHP. It's part of the League of Extraordinary Packages.
 

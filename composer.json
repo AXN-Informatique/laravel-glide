@@ -1,6 +1,6 @@
 {
     "name" : "axn/laravel-glide",
-    "description" : "league/glide wrapper for Laravel 5.1+",
+    "description" : "league/glide wrapper for Laravel",
     "homepage" : "https://github.com/AXN-Informatique/laravel-glide",
     "support" : {
         "issues" : "https://github.com/AXN-Informatique/laravel-glide/issues"
@@ -12,7 +12,7 @@
     ],
     "license" : "MIT",
     "require" : {
-        "laravel/framework" : "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+        "laravel/framework" : "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*",
         "league/glide-laravel" : "^1.0"
     },
     "autoload" : {
