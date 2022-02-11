@@ -1,10 +1,12 @@
 Changelog
 =========
 
-1.11.0 (2022-02-11)
+2.0.0 (2022-02-11)
 -------------------
 
 - Add support for Laravel 9
+- Remove support for Laravel <9
+- Replace dependency league/laravel-glide v1 by league/symfony-glide v2
 
 1.10.0 (2020-09-24)
 -------------------

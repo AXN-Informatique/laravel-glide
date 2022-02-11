@@ -2,8 +2,8 @@
 
 namespace Axn\LaravelGlide;
 
+use Axn\LaravelGlide\Responses\LaravelResponseFactory;
 use Illuminate\Contracts\Foundation\Application;
-use League\Glide\Responses\LaravelResponseFactory;
 use League\Glide\ServerFactory;
 use League\Glide\Server;
 use League\Glide\Signatures\SignatureFactory;
