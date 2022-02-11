@@ -5,7 +5,6 @@ namespace Axn\LaravelGlide;
 use Axn\LaravelGlide\Responses\LaravelResponseFactory;
 use Illuminate\Contracts\Foundation\Application;
 use League\Glide\ServerFactory;
-use League\Glide\Server;
 use League\Glide\Signatures\SignatureFactory;
 use League\Glide\Urls\UrlBuilderFactory;
 
@@ -79,12 +78,11 @@ class GlideServer
      *
      * @param  string  $path
      * @param  array   $params
-     * @param  bool    $skipValidation
      * @return mixed
      */
-    public function imageResponse($path, array $params = [], $skipValidation = false)
+    public function imageResponse($path, array $params = [])
     {
-        $this->validateRequest($path, $params, $skipValidation);
+        $this->validateRequest($path, $params);
 
         return $this->getLeagueGlideServer()->getImageResponse($path, $params);
     }
@@ -94,13 +92,10 @@ class GlideServer
      *
      * @param  string  $path
      * @param  array   $params
-     * @param  bool    $skipValidation
      * @return string
      */
-    public function imageAsBase64($path, array $params = [], $skipValidation = false)
+    public function imageAsBase64($path, array $params = [])
     {
-        $this->validateRequest($path, $params, $skipValidation);
-
         return $this->getLeagueGlideServer()->getImageAsBase64($path, $params);
     }
 
@@ -109,13 +104,10 @@ class GlideServer
      *
      * @param  string  $path
      * @param  array   $params
-     * @param  bool    $skipValidation
      * @return void
      */
-    public function outputImage($path, array $params = [], $skipValidation = false)
+    public function outputImage($path, array $params = [])
     {
-        $this->validateRequest($path, $params, $skipValidation);
-
         $this->getLeagueGlideServer()->outputImage($path, $params);
     }
 
@@ -124,12 +116,11 @@ class GlideServer
      *
      * @param  string  $path
      * @param  array   $params
-     * @param  bool    $skipValidation
      * @return void
      */
-    public function validateRequest($path, array $params = [], $skipValidation = false)
+    public function validateRequest($path, array $params = [])
     {
-        if (!$this->config['signatures'] || $skipValidation) {
+        if (!$this->config['signatures']) {
             return;
         }
 

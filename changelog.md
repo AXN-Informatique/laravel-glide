@@ -7,6 +7,8 @@ Changelog
 - Add support for Laravel 9
 - Remove support for Laravel <9
 - Replace dependency league/laravel-glide v1 by league/symfony-glide v2
+- Remove third parameter $skipValidation in methods outputImage(), imageResponse() and imageAsBase64()
+- Remove call to validateRequest() in methods outputImage() and imageAsBase64()
 
 1.10.0 (2020-09-24)
 -------------------
