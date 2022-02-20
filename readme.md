@@ -10,6 +10,12 @@ Using this package you'll be able to generate image manipulations on the fly and
 These URL's will be signed so only you will be able to specify which manipulations should be generated.
 Every manipulation will be cached.
 
+Upgrade
+-------
+
+For upgrade instructions please see the `upgrade.md` file.
+
+
 Installation
 ------------
 
@@ -19,41 +25,9 @@ Install through composer:
 composer require axn/laravel-glide
 ```
 
-In Laravel 5.5 the service provider will automatically get registered.
-In older versions of the framework just add the service provider
-to the array of providers in `config/app.php`:
+## Environment
 
-```php
-// config/app.php
-
-'provider' => [
-    //...
-    Axn\LaravelGlide\ServiceProvider::class,
-    //...
-];
-```
-
-In Laravel 5.5 the facade will automatically get registered.
-In older versions of the framework just add the facade
-to the array of aliases in `config/app.php`:
-
-```php
-// config/app.php
-
-'aliases' => [
-    //...
-    'Glide' => Axn\LaravelGlide\Facade::class,
-    //...
-];
-```
-
-Publish the config file of the package using artisan:
-
-```sh
-php artisan vendor:publish --provider="Axn\LaravelGlide\ServiceProvider"
-```
-
-Modify the environment file by adding the following lines:
+Edit your environment file by adding the following lines:
 
 ```
 GLIDE_IMAGE_DRIVER=gd
@@ -70,6 +44,49 @@ A 128 character (or larger) signing key is recommended. To help you do this, you
 php artisan glide:key-generate
 ```
 
+## Filesytem disks
+
+For file storage it is possible to use as many servers as desired. In order to keep an organized storage architecture, we advise you to create several disks according to their uses.
+
+You will then create a disk in the file `/config/filesystems.php` to store our images, and another one for user avatars:
+
+```php
+'disks' => [
+    //...
+    'images' => [
+        'driver' => 'local',
+        'root' => storage_path('app/images'),
+    ],
+
+    'avatars' => [
+        'driver' => 'local',
+        'root' => storage_path('app/images'),
+    ],
+    //...
+],
+```
+
+## Configuration
+
+Then publish the configuration files using artisan:
+
+```sh
+php artisan vendor:publish --tag="glide-config"
+```
+
+These files then published are rather to be taken as an example. Take the time to read the comments to understand what you can configure.
+
+For example in these files we have configured two servers, one for images and a second for user avatars.
+
+The name of the filestem "source", "cache" and "watermarks" must then be the same as that of the disk in the configuration of the filesystem of the application.
+The path prefixes will then depend on the configured disk.
+
+*It's not very obvious at first glance, but it gives you a lot of freedom to organize the storage of your files.*
+And when you understand how it works and how you can benefit from it, you will be happy with the flexibility it gives you.
+
+After looking at these files, feel free to delete, modify and create your own files as needed.
+
+
 Usage
 -----
 
@@ -78,13 +95,16 @@ Create a route for each server you have configured:
 ```php
 // App/Http/routes.php
 
-Route::get(config('glide.servers.images.base_url').'/{path}', [
-    'uses' => 'GlideController@images'
-])->where('path', '(.*)');
+use App\Http\Controllers\GlideController;
+use Illuminate\Support\Facades\Route;
 
-Route::get(config('glide.servers.avatars.base_url').'/{path}', [
-    'uses' => 'GlideController@avatars'
-])->where('path', '(.*)');
+Route::get(config('glide.servers.images.base_url').'/{path}', [GlideController::class, 'images'])
+    ->name('images')
+    ->where('path', '(.*)');
+
+Route::get(config('glide.servers.avatars.base_url').'/{path}', [GlideController::class, 'avatars'])
+    ->name('avatars')
+    ->where('path', '(.*)');
 ```
 
 Create corresponding controllers/actions:
@@ -114,9 +134,7 @@ class GlideController extends Controller
 Add image to your views:
 
 ```blade
-<!-- From default server -->
-<img src="{{ Glide::url('example1.jpg', ['w' => 500, 'h' => 300, 'fit' => 'crop']) }}">
+<img src="{{ Glide::server('images')->url('example1.jpg', ['p' => 'medium]) }}">
 
-<!-- From "avatars" server -->
-<img src="{{ Glide::server('avatars')->url('example2.jpg', ['w' => 250, 'fit' => 'fill']) }}">
+<img src="{{ Glide::server('avatars')->url('example2.jpg', ['w' => 50, 'fit' => 'crop']) }}">
 ```

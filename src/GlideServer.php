@@ -27,16 +27,15 @@ class GlideServer
     /**
      * The league glide server instance.
      *
-     * @var LeagueGlideServer
+     * @var \League\Glide\Server
      */
     protected $server;
 
     /**
      * Create a new GlideServer instance.
      *
-     * @param  array             $config
-     * @param  LeagueGlideServer $server
-     * @return void
+     * @param Application $app
+     * @param array $config
      */
     public function __construct(Application $app, array $config)
     {
@@ -50,22 +49,21 @@ class GlideServer
      *
      * @return array
      */
-    public function getConfig()
+    public function getConfig(): array
     {
         return $this->config;
     }
 
     /**
-     * Return the league glide server instance for this glide server.
+     * Return the league glide server instance.
      *
      * @return \League\Glide\Server
      */
-    public function getLeagueGlideServer()
+    public function getLeagueGlideServer(): \League\Glide\Server
     {
-        if (null === $this->server) {
-            $config = $this->config + [
-                'response' => new LaravelResponseFactory($this->app['request'])
-            ];
+        if ($this->server === null) {
+            $config = $this->config;
+            $config['response'] = new LaravelResponseFactory($this->app['request']);
 
             $this->server = ServerFactory::create($config);
         }
@@ -76,11 +74,13 @@ class GlideServer
     /**
      * Generate and return image response.
      *
-     * @param  string  $path
-     * @param  array   $params
-     * @return mixed
+     * @param string $path
+     * @param array $params
+     * @return mixed Image response.
+     *
+     * @throws \InvalidArgumentException
      */
-    public function imageResponse($path, array $params = [])
+    public function imageResponse(string $path, array $params = [])
     {
         $this->validateRequest($path, $params);
 
@@ -90,11 +90,11 @@ class GlideServer
     /**
      * Generate and return Base64 encoded image.
      *
-     * @param  string  $path
-     * @param  array   $params
+     * @param string $path
+     * @param array $params
      * @return string
      */
-    public function imageAsBase64($path, array $params = [])
+    public function imageAsBase64(string $path, array $params = [])
     {
         return $this->getLeagueGlideServer()->getImageAsBase64($path, $params);
     }
@@ -102,11 +102,11 @@ class GlideServer
     /**
      * Generate and output image.
      *
-     * @param  string  $path
-     * @param  array   $params
+     * @param string $path
+     * @param array $params
      * @return void
      */
-    public function outputImage($path, array $params = [])
+    public function outputImage(string $path, array $params = [])
     {
         $this->getLeagueGlideServer()->outputImage($path, $params);
     }
@@ -114,11 +114,13 @@ class GlideServer
     /**
      * Validate a request signature.
      *
-     * @param  string  $path
-     * @param  array   $params
+     * @param string $path
+     * @param array $params
      * @return void
+     *
+     * @throws \League\Glide\Signatures\SignatureException
      */
-    public function validateRequest($path, array $params = [])
+    public function validateRequest($path, array $params = []): void
     {
         if (!$this->config['signatures']) {
             return;
@@ -132,11 +134,11 @@ class GlideServer
     /**
      * Return image url.
      *
-     * @param  string  $path
-     * @param  array   $params
+     * @param string $path
+     * @param array $params
      * @return string
      */
-    public function url($path, array $params = [])
+    public function url(string $path, array $params = []): string
     {
         $urlBuilder = UrlBuilderFactory::create($this->config['base_url'], $this->config['sign_key']);
 

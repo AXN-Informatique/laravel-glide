@@ -7,23 +7,23 @@ use Illuminate\Contracts\Foundation\Application;
 class ServerManager
 {
     /**
-     * The application instance.
+     * The application instance
      *
      * @var Application
      */
     protected $app;
 
     /**
-     * The array of instanciated Glide servers.
+     * The array of instanciated Glide servers
      *
      * @var array
      */
     protected $servers = [];
 
     /**
-     * Create a new server manager instance.
+     * Create a new server manager instance
      *
-     * @param  Application  $app
+     * @param Application $app
      * @return void
      */
     public function __construct(Application $app)
@@ -32,18 +32,18 @@ class ServerManager
     }
 
     /**
-     * Get a server instance.
+     * Get a server instance
      *
-     * @param  string|null  $name
+     * @param string|null $name
      * @return GlideServer
      */
-    public function server($name = null)
+    public function server(?string $name = null): GlideServer
     {
         if (empty($name)) {
-            $name = $this->getDefaultServerName();
+            $name = $this->app['config']['glide']['default'];
         }
 
-        if (!isset($this->servers[$name])) {
+        if (! isset($this->servers[$name])) {
             $this->servers[$name] = $this->makeServer($name);
         }
 
@@ -51,14 +51,26 @@ class ServerManager
     }
 
     /**
-     * Make the server instance.
+     * Dynamically pass methods to the server
      *
-     * @param  string  $name
+     * @param string $method
+     * @param array $parameters
+     * @return mixed
+     */
+    public function __call(string $method, array $parameters): mixed
+    {
+        return call_user_func_array([$this->server(), $method], $parameters);
+    }
+
+    /**
+     * Make the a new server instance
+     *
+     * @param string $name
      * @return GlideServer
      */
-    protected function makeServer($name)
+    protected function makeServer(string $name): GlideServer
     {
-        $config = $this->getConfig($name);
+        $config = $this->app['config']['glide']['servers'][$name];
 
         if (empty($config)) {
             throw new \InvalidArgumentException("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
@@ -77,38 +89,5 @@ class ServerManager
         }
 
         return new GlideServer($this->app, $config);
-    }
-
-    /**
-     * Get the server configuration.
-     *
-     * @param  string  $name
-     * @return array
-     */
-    protected function getConfig($name)
-    {
-        return $this->app['config']["glide.servers.{$name}"];
-    }
-
-    /**
-     * Get the default server name.
-     *
-     * @return string
-     */
-    public function getDefaultServerName()
-    {
-        return $this->app['config']['glide.default'];
-    }
-
-    /**
-     * Dynamically pass methods to the default server.
-     *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return call_user_func_array([$this->server(), $method], $parameters);
     }
 }

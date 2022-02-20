@@ -1,14 +1,21 @@
 Changelog
 =========
 
+2.0.1 (2022-02-20)
+------------------
+
+- Enhance readme.md file
+- Add an upgrade.md file
+- Complete type hinting
+
 2.0.0 (2022-02-11)
 -------------------
 
-- Add support for Laravel 9
-- Remove support for Laravel <9
-- Replace dependency league/laravel-glide v1 by league/symfony-glide v2
-- Remove third parameter $skipValidation in methods outputImage(), imageResponse() and imageAsBase64()
-- Remove call to validateRequest() in methods outputImage() and imageAsBase64()
+- Added support for Laravel 9
+- Removed support for Laravel <9
+- Replaced dependency league/laravel-glide v1 by league/symfony-glide v2
+- Removed third parameter $skipValidation in methods `imageResponse()`, `imageAsBase64()` and `outputImage()`
+- Removed call to validateRequest() in methods `imageAsBase64()` and `outputImage()`
 
 1.10.0 (2020-09-24)
 -------------------

@@ -12,6 +12,7 @@
     ],
     "license" : "MIT",
     "require" : {
+        "php": "^8.0",
         "laravel/framework" : "^9.0",
         "league/glide-symfony" : "^2.0"
     },
