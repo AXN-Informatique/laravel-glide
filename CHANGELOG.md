@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2.0 (2024-04-16)
+------------------
+
+- Added support for Laravel 11
+- Added tools and files for code quality
+
 2.1.0 (2023-02-20)
 ------------------
 
