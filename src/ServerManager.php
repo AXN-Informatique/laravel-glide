@@ -2,18 +2,11 @@
 
 namespace Axn\LaravelGlide;
 
-use InvalidArgumentException;
 use Illuminate\Contracts\Foundation\Application;
+use InvalidArgumentException;
 
 class ServerManager
 {
-    /**
-     * The application instance
-     *
-     * @var Application
-     */
-    protected $app;
-
     /**
      * The array of instanciated Glide servers
      *
@@ -26,9 +19,12 @@ class ServerManager
      *
      * @return void
      */
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
+    public function __construct(
+        /**
+         * The application instance
+         */
+        protected Application $app
+    ) {
     }
 
     /**
@@ -56,7 +52,7 @@ class ServerManager
     }
 
     /**
-     * Make the a new server instance
+     * Make a new server instance
      */
     protected function makeServer(string $name): GlideServer
     {

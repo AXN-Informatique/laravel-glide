@@ -27,49 +27,64 @@ class GlideKeyGenerate extends Command
      */
     public function handle()
     {
-        $key = $this->generateRandomKey();
-
         if ($this->option('show')) {
-            return $this->line('<comment>'.$key.'</comment>');
+            return $this->line('<comment>'.$this->getKeyFromEnvironmentFile().'</comment>');
         }
 
-        $current = $this->setKeyInEnvironmentFile($key);
+        $key = $this->generateRandomKey();
 
-        $this->line('<comment>'.$current.'</comment>');
+        $this->setKeyInEnvironmentFile($key);
 
         $this->info("Glide sign key [$key] set successfully.");
+
+        return self::SUCCESS;
     }
 
     /**
-     * Set the key in the environment file.
-     *
-     * @param  string  $key
-     * @return void
+     * Get the key in the environment file.
      */
-    protected function setKeyInEnvironmentFile($key)
+    protected function getKeyFromEnvironmentFile(): string
     {
-        $currentContent = file_get_contents(base_path('.env'));
-
         $currentValue = '';
 
-        if (preg_match('/^GLIDE_SIGN_KEY=(.*)$/m', $currentContent, $matches) && isset($matches[1])) {
+        if (preg_match('/^GLIDE_SIGN_KEY=(.*)$/m', $this->envFileContent(), $matches) && isset($matches[1])) {
             $currentValue = $matches[1];
         }
 
+        return $currentValue;
+    }
+
+    /**
+     * Set the given key in the environment file.
+     */
+    protected function setKeyInEnvironmentFile(string $key): void
+    {
         file_put_contents(base_path('.env'), str_replace(
-            'GLIDE_SIGN_KEY='.$currentValue,
+            'GLIDE_SIGN_KEY='.$this->getKeyFromEnvironmentFile(),
             'GLIDE_SIGN_KEY='.$key,
-            $currentContent
+            $this->envFileContent()
         ));
     }
 
     /**
      * Generate a random key for the application.
-     *
-     * @return string
      */
-    protected function generateRandomKey()
+    protected function generateRandomKey(): string
     {
         return base64_encode(random_bytes(128));
+    }
+
+    /**
+     * Generate a random key for the application.
+     */
+    protected function envFileContent(): string
+    {
+        static $current = null;
+
+        if ($current === null) {
+            $current = file_get_contents(base_path('.env'));
+        }
+
+        return $current;
     }
 }

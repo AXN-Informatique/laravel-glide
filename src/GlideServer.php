@@ -2,46 +2,35 @@
 
 namespace Axn\LaravelGlide;
 
-use League\Glide\Server;
-use InvalidArgumentException;
-use League\Glide\Signatures\SignatureException;
 use Axn\LaravelGlide\Responses\LaravelResponseFactory;
 use Illuminate\Contracts\Foundation\Application;
+use InvalidArgumentException;
+use League\Glide\Server;
 use League\Glide\ServerFactory;
+use League\Glide\Signatures\SignatureException;
 use League\Glide\Signatures\SignatureFactory;
 use League\Glide\Urls\UrlBuilderFactory;
 
 class GlideServer
 {
     /**
-     * The application instance.
-     *
-     * @var Application
-     */
-    protected $app;
-
-    /**
-     * Server configuration.
-     *
-     * @var array
-     */
-    protected $config;
-
-    /**
      * The league glide server instance.
-     *
-     * @var Server
      */
-    protected $server;
+    protected ?Server $server;
 
     /**
      * Create a new GlideServer instance.
      */
-    public function __construct(Application $app, array $config)
-    {
-        $this->app = $app;
-
-        $this->config = $config;
+    public function __construct(
+        /**
+         * The application instance.
+         */
+        protected Application $app,
+        /**
+         * Server configuration.
+         */
+        protected array $config,
+    ) {
     }
 
     /**
@@ -83,20 +72,16 @@ class GlideServer
 
     /**
      * Generate and return Base64 encoded image.
-     *
-     * @return string
      */
-    public function imageAsBase64(string $path, array $params = [])
+    public function imageAsBase64(string $path, array $params = []): string
     {
         return $this->getLeagueGlideServer()->getImageAsBase64($path, $params);
     }
 
     /**
      * Generate and output image.
-     *
-     * @return void
      */
-    public function outputImage(string $path, array $params = [])
+    public function outputImage(string $path, array $params = []): void
     {
         $this->getLeagueGlideServer()->outputImage($path, $params);
     }
@@ -104,11 +89,9 @@ class GlideServer
     /**
      * Validate a request signature.
      *
-     * @param  string  $path
-     *
      * @throws SignatureException
      */
-    public function validateRequest($path, array $params = []): void
+    public function validateRequest(string $path, array $params = []): void
     {
         if (! $this->config['signatures']) {
             return;
