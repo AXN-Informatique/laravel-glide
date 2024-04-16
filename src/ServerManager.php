@@ -2,6 +2,7 @@
 
 namespace Axn\LaravelGlide;
 
+use InvalidArgumentException;
 use Illuminate\Contracts\Foundation\Application;
 
 class ServerManager
@@ -62,7 +63,7 @@ class ServerManager
         $config = $this->app['config']['glide']['servers'][$name];
 
         if (empty($config)) {
-            throw new \InvalidArgumentException("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
+            throw new InvalidArgumentException("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
         }
 
         if (\array_key_exists($config['source'], $this->app['config']['filesystems']['disks'])) {

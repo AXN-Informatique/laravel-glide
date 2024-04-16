@@ -2,6 +2,9 @@
 
 namespace Axn\LaravelGlide;
 
+use League\Glide\Server;
+use InvalidArgumentException;
+use League\Glide\Signatures\SignatureException;
 use Axn\LaravelGlide\Responses\LaravelResponseFactory;
 use Illuminate\Contracts\Foundation\Application;
 use League\Glide\ServerFactory;
@@ -27,7 +30,7 @@ class GlideServer
     /**
      * The league glide server instance.
      *
-     * @var \League\Glide\Server
+     * @var Server
      */
     protected $server;
 
@@ -52,7 +55,7 @@ class GlideServer
     /**
      * Return the league glide server instance.
      */
-    public function getLeagueGlideServer(): \League\Glide\Server
+    public function getLeagueGlideServer(): Server
     {
         if ($this->server === null) {
             $config = $this->config;
@@ -69,7 +72,7 @@ class GlideServer
      *
      * @return mixed Image response.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function imageResponse(string $path, array $params = [])
     {
@@ -103,7 +106,7 @@ class GlideServer
      *
      * @param  string  $path
      *
-     * @throws \League\Glide\Signatures\SignatureException
+     * @throws SignatureException
      */
     public function validateRequest($path, array $params = []): void
     {

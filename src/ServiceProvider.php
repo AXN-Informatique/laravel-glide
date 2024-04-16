@@ -11,9 +11,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/glide.php', 'glide');
 
-        $this->app->singleton('glide', function ($app) {
-            return new ServerManager($app);
-        });
+        $this->app->singleton('glide', fn($app) => new ServerManager($app));
     }
 
     public function boot()
