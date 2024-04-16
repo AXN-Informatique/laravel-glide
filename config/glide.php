@@ -39,5 +39,5 @@ return [
          * Avatars server's configuration.
          */
         'avatars' => require __DIR__.'/glide_servers/user_avatars.php',
-    ]
+    ],
 ];

@@ -11,7 +11,7 @@ return [
 
     'driver' => env('GLIDE_IMAGE_DRIVER', 'gd'),
 
-    'max_image_size' => 600*600,
+    'max_image_size' => 600 * 600,
 
     'signatures' => true,
 

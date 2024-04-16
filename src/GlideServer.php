@@ -33,9 +33,6 @@ class GlideServer
 
     /**
      * Create a new GlideServer instance.
-     *
-     * @param Application $app
-     * @param array $config
      */
     public function __construct(Application $app, array $config)
     {
@@ -46,8 +43,6 @@ class GlideServer
 
     /**
      * Return the configuration for this glide server.
-     *
-     * @return array
      */
     public function getConfig(): array
     {
@@ -56,8 +51,6 @@ class GlideServer
 
     /**
      * Return the league glide server instance.
-     *
-     * @return \League\Glide\Server
      */
     public function getLeagueGlideServer(): \League\Glide\Server
     {
@@ -74,8 +67,6 @@ class GlideServer
     /**
      * Generate and return image response.
      *
-     * @param string $path
-     * @param array $params
      * @return mixed Image response.
      *
      * @throws \InvalidArgumentException
@@ -90,8 +81,6 @@ class GlideServer
     /**
      * Generate and return Base64 encoded image.
      *
-     * @param string $path
-     * @param array $params
      * @return string
      */
     public function imageAsBase64(string $path, array $params = [])
@@ -102,8 +91,6 @@ class GlideServer
     /**
      * Generate and output image.
      *
-     * @param string $path
-     * @param array $params
      * @return void
      */
     public function outputImage(string $path, array $params = [])
@@ -114,29 +101,23 @@ class GlideServer
     /**
      * Validate a request signature.
      *
-     * @param string $path
-     * @param array $params
-     * @return void
+     * @param  string  $path
      *
      * @throws \League\Glide\Signatures\SignatureException
      */
     public function validateRequest($path, array $params = []): void
     {
-        if (!$this->config['signatures']) {
+        if (! $this->config['signatures']) {
             return;
         }
 
-        $path = $this->config['base_url'] . '/' . trim($path, '/');
+        $path = $this->config['base_url'].'/'.trim($path, '/');
 
         SignatureFactory::create($this->config['sign_key'])->validateRequest($path, $params);
     }
 
     /**
      * Return image url.
-     *
-     * @param string $path
-     * @param array $params
-     * @return string
      */
     public function url(string $path, array $params = []): string
     {
@@ -149,11 +130,11 @@ class GlideServer
      * Dynamically pass methods to the League Glide server.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      * @return mixed
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->getLeagueGlideServer(), $method], $parameters);
+        return \call_user_func_array([$this->getLeagueGlideServer(), $method], $parameters);
     }
 }

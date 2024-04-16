@@ -1,0 +1,3 @@
+/.rector_cache
+/vendor
+composer.lock

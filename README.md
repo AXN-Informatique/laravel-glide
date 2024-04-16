@@ -13,7 +13,7 @@ Every manipulation will be cached.
 Upgrade
 -------
 
-For upgrade instructions please see the `upgrade.md` file.
+For upgrade instructions please see the `UPGRADE.md` file.
 
 
 Installation

@@ -9,7 +9,7 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/glide.php', 'glide');
+        $this->mergeConfigFrom(__DIR__.'/../config/glide.php', 'glide');
 
         $this->app->singleton('glide', function ($app) {
             return new ServerManager($app);
@@ -22,9 +22,9 @@ class ServiceProvider extends BaseServiceProvider
             $this->commands(GlideKeyGenerate::class);
 
             $this->publishes([
-                __DIR__ . '/../config/glide.php' => $this->app->configPath() . '/' . 'glide.php',
-                __DIR__ . '/../config/glide_servers/images.php' => $this->app->configPath() . '/glide_servers/' . 'images.php',
-                __DIR__ . '/../config/glide_servers/user_avatars.php' => $this->app->configPath() . '/glide_servers/' . 'user_avatars.php',
+                __DIR__.'/../config/glide.php' => $this->app->configPath().'/'.'glide.php',
+                __DIR__.'/../config/glide_servers/images.php' => $this->app->configPath().'/glide_servers/'.'images.php',
+                __DIR__.'/../config/glide_servers/user_avatars.php' => $this->app->configPath().'/glide_servers/'.'user_avatars.php',
             ], 'glide-config');
         }
     }

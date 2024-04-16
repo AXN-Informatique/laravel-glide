@@ -13,8 +13,13 @@
     "license" : "MIT",
     "require" : {
         "php": "^8.0",
-        "laravel/framework" : "^9.0 || ^10.0",
+        "laravel/framework" : "^9.0 || ^10.0 || ^11.0",
         "league/glide-symfony" : "^2.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.15.1",
+        "driftingly/rector-laravel": "^1.1",
+        "rector/rector": "^1.0.4"
     },
     "autoload" : {
         "psr-4" : {

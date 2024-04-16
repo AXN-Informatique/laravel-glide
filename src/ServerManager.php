@@ -23,7 +23,6 @@ class ServerManager
     /**
      * Create a new server manager instance
      *
-     * @param Application $app
      * @return void
      */
     public function __construct(Application $app)
@@ -33,9 +32,6 @@ class ServerManager
 
     /**
      * Get a server instance
-     *
-     * @param string|null $name
-     * @return GlideServer
      */
     public function server(?string $name = null): GlideServer
     {
@@ -52,21 +48,14 @@ class ServerManager
 
     /**
      * Dynamically pass methods to the server
-     *
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
      */
     public function __call(string $method, array $parameters): mixed
     {
-        return call_user_func_array([$this->server(), $method], $parameters);
+        return \call_user_func_array([$this->server(), $method], $parameters);
     }
 
     /**
      * Make the a new server instance
-     *
-     * @param string $name
-     * @return GlideServer
      */
     protected function makeServer(string $name): GlideServer
     {
@@ -76,16 +65,16 @@ class ServerManager
             throw new \InvalidArgumentException("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
         }
 
-        if (array_key_exists($config['source'], $this->app['config']['filesystems']['disks'])) {
-            $config['source'] =  $this->app['filesystem']->disk($config['source'])->getDriver();
+        if (\array_key_exists($config['source'], $this->app['config']['filesystems']['disks'])) {
+            $config['source'] = $this->app['filesystem']->disk($config['source'])->getDriver();
         }
 
-        if (array_key_exists($config['cache'], $this->app['config']['filesystems']['disks'])) {
-            $config['cache'] =  $this->app['filesystem']->disk($config['cache'])->getDriver();
+        if (\array_key_exists($config['cache'], $this->app['config']['filesystems']['disks'])) {
+            $config['cache'] = $this->app['filesystem']->disk($config['cache'])->getDriver();
         }
 
-        if (isset($config['watermarks']) && array_key_exists($config['watermarks'], $this->app['config']['filesystems']['disks'])) {
-            $config['watermarks'] =  $this->app['filesystem']->disk($config['watermarks'])->getDriver();
+        if (isset($config['watermarks']) && \array_key_exists($config['watermarks'], $this->app['config']['filesystems']['disks'])) {
+            $config['watermarks'] = $this->app['filesystem']->disk($config['watermarks'])->getDriver();
         }
 
         return new GlideServer($this->app, $config);
