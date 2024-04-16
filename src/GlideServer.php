@@ -46,7 +46,7 @@ class GlideServer
      */
     public function getLeagueGlideServer(): Server
     {
-        if ($this->server === null) {
+        if (! $this->server instanceof Server) {
             $config = $this->config;
             $config['response'] = new LaravelResponseFactory($this->app['request']);
 

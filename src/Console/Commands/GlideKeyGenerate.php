@@ -35,7 +35,7 @@ class GlideKeyGenerate extends Command
 
         $this->setKeyInEnvironmentFile($key);
 
-        $this->info("Glide sign key [$key] set successfully.");
+        $this->info(sprintf('Glide sign key [%s] set successfully.', $key));
 
         return self::SUCCESS;
     }
@@ -45,13 +45,15 @@ class GlideKeyGenerate extends Command
      */
     protected function getKeyFromEnvironmentFile(): string
     {
-        $currentValue = '';
-
-        if (preg_match('/^GLIDE_SIGN_KEY=(.*)$/m', $this->envFileContent(), $matches) && isset($matches[1])) {
-            $currentValue = $matches[1];
+        if (! preg_match('/^GLIDE_SIGN_KEY=(.*)$/m', $this->envFileContent(), $matches)) {
+            return '';
         }
 
-        return $currentValue;
+        if (! isset($matches[1])) {
+            return '';
+        }
+
+        return $matches[1];
     }
 
     /**

@@ -12,9 +12,8 @@ use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php81\Rector\Array_\FirstClassCallableRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Set\ValueObject\SetList;
+use Rector\ValueObject\PhpVersion;
 use RectorLaravel\Rector\FuncCall\RemoveDumpDataDeadCodeRector;
-use RectorLaravel\Rector\MethodCall\EloquentWhereRelationTypeHintingParameterRector;
-use RectorLaravel\Rector\MethodCall\EloquentWhereTypeHintClosureParameterRector;
 use RectorLaravel\Rector\PropertyFetch\OptionalToNullsafeOperatorRector;
 use RectorLaravel\Set\LaravelSetList;
 
@@ -30,6 +29,8 @@ return static function (RectorConfig $rectorConfig): void {
         maxNumberOfProcess: 16,
         jobSize: 20
     );
+
+    $rectorConfig->phpVersion(PhpVersion::PHP_80);
 
     $rectorConfig->importNames();
 
@@ -71,15 +72,13 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->rules([
-        EloquentWhereRelationTypeHintingParameterRector::class,
-        EloquentWhereTypeHintClosureParameterRector::class,
         OptionalToNullsafeOperatorRector::class,
         RemoveDumpDataDeadCodeRector::class,
     ]);
 
     $rectorConfig->sets([
         LaravelSetList::LARAVEL_FACADE_ALIASES_TO_FULL_NAMES,
-        SetList::PHP_82,
+        SetList::PHP_80,
         SetList::DEAD_CODE,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,

@@ -32,7 +32,7 @@ class ServerManager
      */
     public function server(?string $name = null): GlideServer
     {
-        if (empty($name)) {
+        if ($name === null || $name === '' || $name === '0') {
             $name = $this->app['config']['glide']['default'];
         }
 
@@ -59,7 +59,7 @@ class ServerManager
         $config = $this->app['config']['glide']['servers'][$name];
 
         if (empty($config)) {
-            throw new InvalidArgumentException("Unable to instantiate Glide server because you provide en empty configuration, \"{$name}\" is probably a wrong server name.");
+            throw new InvalidArgumentException(sprintf('Unable to instantiate Glide server because you provide en empty configuration, "%s" is probably a wrong server name.', $name));
         }
 
         if (\array_key_exists($config['source'], $this->app['config']['filesystems']['disks'])) {
