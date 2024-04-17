@@ -16,7 +16,7 @@ class GlideServer
     /**
      * The league glide server instance.
      */
-    protected ?Server $server;
+    protected ?Server $server = null;
 
     /**
      * Create a new GlideServer instance.

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.1 (2024-04-17)
+------------------
+
+- Fix "Typed property Axn\LaravelGlide\GlideServer::$server must not be accessed before initialization"
+
 2.2.0 (2024-04-16)
 ------------------
 
