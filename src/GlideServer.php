@@ -30,8 +30,7 @@ class GlideServer
          * Server configuration.
          */
         protected array $config,
-    ) {
-    }
+    ) {}
 
     /**
      * Return the configuration for this glide server.

@@ -24,8 +24,7 @@ class ServerManager
          * The application instance
          */
         protected Application $app
-    ) {
-    }
+    ) {}
 
     /**
      * Get a server instance
@@ -59,7 +58,7 @@ class ServerManager
         $config = $this->app['config']['glide']['servers'][$name];
 
         if (empty($config)) {
-            throw new InvalidArgumentException(sprintf('Unable to instantiate Glide server because you provide en empty configuration, "%s" is probably a wrong server name.', $name));
+            throw new InvalidArgumentException(\sprintf('Unable to instantiate Glide server because you provide en empty configuration, "%s" is probably a wrong server name.', $name));
         }
 
         if (\array_key_exists($config['source'], $this->app['config']['filesystems']['disks'])) {

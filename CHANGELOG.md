@@ -1,6 +1,14 @@
 Changelog
 =========
 
+3.0.0 (2025-03-20)
+------------------
+
+- Minimum PHP version increased to 8.4
+- Minimum Laravel version increased to 12
+- Minimum Rector version increased to 2
+
+
 2.2.1 (2024-04-17)
 ------------------
 

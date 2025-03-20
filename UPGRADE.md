@@ -1,6 +1,13 @@
 UPGRADE
 =======
 
+From version 2.x to version 3.x
+-------------------------------
+
+This package now requires at least **PHP 8.4** and **Laravel 12**.
+To install this new version you must update your application accordingly.
+
+
 From version 1.x to version 2.x
 -------------------------------
 

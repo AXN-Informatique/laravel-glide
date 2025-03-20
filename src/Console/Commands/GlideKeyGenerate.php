@@ -35,7 +35,7 @@ class GlideKeyGenerate extends Command
 
         $this->setKeyInEnvironmentFile($key);
 
-        $this->info(sprintf('Glide sign key [%s] set successfully.', $key));
+        $this->info(\sprintf('Glide sign key [%s] set successfully.', $key));
 
         return self::SUCCESS;
     }
