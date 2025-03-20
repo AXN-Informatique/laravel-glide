@@ -114,7 +114,7 @@ Create corresponding controllers/actions:
 
 namespace App\Http\Controllers;
 
-use Glide;
+use Axn\LaravelGlide\Facades\Glide;
 use Illuminate\Http\Request;
 
 class GlideController extends Controller

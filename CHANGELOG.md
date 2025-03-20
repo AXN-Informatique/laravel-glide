@@ -7,6 +7,7 @@ Changelog
 - Minimum PHP version increased to 8.4
 - Minimum Laravel version increased to 12
 - Minimum Rector version increased to 2
+- Changed the location and name of the "facade"
 
 
 2.2.1 (2024-04-17)

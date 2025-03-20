@@ -7,6 +7,28 @@ From version 2.x to version 3.x
 This package now requires at least **PHP 8.4** and **Laravel 12**.
 To install this new version you must update your application accordingly.
 
+The facade has been moved and renamed:
+
+Before: `Axn\LaravelGlide\Facade`
+Now: `Axn\LaravelGlide\Facades\Glide`
+
+In the vast majority of cases, you should search for:
+
+```php
+use Axn\LaravelGlide\Facade as Glide;
+```
+
+Or simply:
+
+```php
+use Glide;
+```
+
+And replace with:
+
+```php
+use Axn\LaravelGlide\Facades\Glide;
+```
 
 From version 1.x to version 2.x
 -------------------------------

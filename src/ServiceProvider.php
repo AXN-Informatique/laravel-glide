@@ -2,11 +2,13 @@
 
 namespace Axn\LaravelGlide;
 
+use Override;
 use Axn\LaravelGlide\Console\Commands\GlideKeyGenerate;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
+    #[Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/glide.php', 'glide');

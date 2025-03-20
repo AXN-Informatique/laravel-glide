@@ -1,10 +1,10 @@
 <?php
 
-namespace Axn\LaravelGlide;
+namespace Axn\LaravelGlide\Facades;
 
-use Illuminate\Support\Facades\Facade as BaseFacade;
+use Illuminate\Support\Facades\Facade;
 
-class Facade extends BaseFacade
+class Glide extends Facade
 {
     /**
      * Get the registered name of the component.

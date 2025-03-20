@@ -32,7 +32,7 @@
                 "Axn\\LaravelGlide\\ServiceProvider"
             ],
             "aliases": {
-                "Glide": "Axn\\LaravelGlide\\Facade"
+                "Glide": "Axn\\LaravelGlide\\Facades\\Glide"
             }
         }
     }
