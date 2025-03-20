@@ -2,9 +2,9 @@
 
 namespace Axn\LaravelGlide;
 
-use Override;
 use Axn\LaravelGlide\Console\Commands\GlideKeyGenerate;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Override;
 
 class ServiceProvider extends BaseServiceProvider
 {
