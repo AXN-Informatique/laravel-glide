@@ -6,29 +6,16 @@ use Illuminate\Console\Command;
 
 class GlideKeyGenerate extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'glide:key-generate {--show : Display the key instead of modifying files}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Set the Glide sign key.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): int
     {
         if ($this->option('show')) {
-            return $this->line('<comment>'.$this->getKeyFromEnvironmentFile().'</comment>');
+            $this->line('<comment>'.$this->getKeyFromEnvironmentFile().'</comment>');
+
+            return self::SUCCESS;
         }
 
         $key = $this->generateRandomKey();

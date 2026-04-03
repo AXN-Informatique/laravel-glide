@@ -9,10 +9,8 @@ class ServerManager
 {
     /**
      * The array of instanciated Glide servers
-     *
-     * @var array
      */
-    protected $servers = [];
+    protected array $servers = [];
 
     /**
      * Create a new server manager instance

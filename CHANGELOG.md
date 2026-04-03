@@ -1,6 +1,18 @@
 Changelog
 =========
 
+3.1.0 (2026-04-03)
+------------------
+
+- Added support for Laravel 13
+- Added Savane documentation (`docs/`)
+- Added Laravel Boost assets (`resources/boost/`)
+- Modernized code (typed properties, return types)
+- Fixed GlideKeyGenerate::handle() return type (was returning void instead of int with --show)
+- Simplified README in favor of Savane documentation
+- Updated dev dependencies
+
+
 3.0.0 (2025-03-20)
 ------------------
 

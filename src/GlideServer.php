@@ -113,12 +113,8 @@ class GlideServer
 
     /**
      * Dynamically pass methods to the League Glide server.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters): mixed
     {
         return \call_user_func_array([$this->getLeagueGlideServer(), $method], $parameters);
     }
