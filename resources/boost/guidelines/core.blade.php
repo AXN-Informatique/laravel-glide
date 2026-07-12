@@ -1,10 +1,5 @@
-@php
-/** @var \Laravel\Boost\Install\GuidelineAssist $assist */
-@endphp
 # Laravel Glide
 
-- Laravel Glide provides on-demand image manipulation using [Glide](https://glide.thephpleague.com/) with multi-server support and signed URLs.
-- Use `Glide::url($path, $params)` to generate signed image URLs and `Glide::imageResponse($path, $params)` to return image responses.
-- Use `Glide::server('name')` to target a specific server; the default server is used when none is specified.
-- Generate the signing key with `{{ $assist->artisanCommand('glide:key-generate') }}`.
-- Configuration is split: `config/glide.php` for general settings, `config/glide_servers/*.php` for per-server settings.
+- On-demand image manipulation (league/glide) with multi-server support and signed URLs: `Glide::url($path, $params)`, `Glide::imageResponse()`, `Glide::server('name')`; generate the signing key with `php artisan glide:key-generate`.
+- Configuration is split between `config/glide.php` (general) and `config/glide_servers/*.php` (per server).
+- See the package's `docs/` directory for details.
