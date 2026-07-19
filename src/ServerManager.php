@@ -14,8 +14,6 @@ class ServerManager
 
     /**
      * Create a new server manager instance
-     *
-     * @return void
      */
     public function __construct(
         /**
@@ -29,7 +27,7 @@ class ServerManager
      */
     public function server(?string $name = null): GlideServer
     {
-        if ($name === null || $name === '' || $name === '0') {
+        if (\in_array($name, [null, '', '0'], true)) {
             $name = $this->app['config']['glide']['default'];
         }
 
@@ -53,10 +51,10 @@ class ServerManager
      */
     protected function makeServer(string $name): GlideServer
     {
-        $config = $this->app['config']['glide']['servers'][$name];
+        $config = $this->app['config']['glide']['servers'][$name] ?? null;
 
         if (empty($config)) {
-            throw new InvalidArgumentException(\sprintf('Unable to instantiate Glide server because you provide en empty configuration, "%s" is probably a wrong server name.', $name));
+            throw new InvalidArgumentException(\sprintf('Unable to instantiate Glide server because you provide an empty configuration, "%s" is probably a wrong server name.', $name));
         }
 
         if (\array_key_exists($config['source'], $this->app['config']['filesystems']['disks'])) {
