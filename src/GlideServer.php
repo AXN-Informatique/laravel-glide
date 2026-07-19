@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axn\LaravelGlide;
 
 use Axn\LaravelGlide\Responses\LaravelResponseFactory;
@@ -28,12 +30,16 @@ class GlideServer
         protected Application $app,
         /**
          * Server configuration.
+         *
+         * @var array<string, mixed>
          */
         protected array $config,
     ) {}
 
     /**
      * Return the configuration for this glide server.
+     *
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {
@@ -58,6 +64,7 @@ class GlideServer
     /**
      * Generate and return image response.
      *
+     * @param  array<string, mixed>  $params
      * @return mixed Image response.
      *
      * @throws InvalidArgumentException
@@ -71,6 +78,8 @@ class GlideServer
 
     /**
      * Generate and return Base64 encoded image.
+     *
+     * @param  array<string, mixed>  $params
      */
     public function imageAsBase64(string $path, array $params = []): string
     {
@@ -79,6 +88,8 @@ class GlideServer
 
     /**
      * Generate and output image.
+     *
+     * @param  array<string, mixed>  $params
      */
     public function outputImage(string $path, array $params = []): void
     {
@@ -87,6 +98,8 @@ class GlideServer
 
     /**
      * Validate a request signature.
+     *
+     * @param  array<string, mixed>  $params
      *
      * @throws SignatureException
      */
@@ -103,6 +116,8 @@ class GlideServer
 
     /**
      * Return image url.
+     *
+     * @param  array<string, mixed>  $params
      */
     public function url(string $path, array $params = []): string
     {
@@ -113,9 +128,11 @@ class GlideServer
 
     /**
      * Dynamically pass methods to the League Glide server.
+     *
+     * @param  array<int, mixed>  $parameters
      */
     public function __call(string $method, array $parameters): mixed
     {
-        return \call_user_func_array([$this->getLeagueGlideServer(), $method], $parameters);
+        return $this->getLeagueGlideServer()->{$method}(...$parameters);
     }
 }

@@ -12,6 +12,8 @@ Changelog
 - Added per-server config options: group_cache_in_folders, cache_with_file_extensions, temp_dir
 - Fixed: an unknown server name now throws an InvalidArgumentException instead of an ErrorException
 - Added test suite (PHPUnit + Orchestra Testbench)
+- Modernized code base for PHP 8.4 / Laravel 13: strict types everywhere, typed config access,
+  first-class dynamic calls, facade @method annotations, array shape PHPDoc
 
 
 3.1.1 (2026-07-12)

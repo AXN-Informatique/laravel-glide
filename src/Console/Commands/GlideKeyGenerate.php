@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axn\LaravelGlide\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -9,6 +11,8 @@ class GlideKeyGenerate extends Command
     protected $signature = 'glide:key-generate {--show : Display the key instead of modifying files}';
 
     protected $description = 'Set the Glide sign key.';
+
+    private ?string $envFileContent = null;
 
     public function handle(): int
     {
@@ -22,7 +26,7 @@ class GlideKeyGenerate extends Command
 
         $this->setKeyInEnvironmentFile($key);
 
-        $this->info(\sprintf('Glide sign key [%s] set successfully.', $key));
+        $this->components->info(\sprintf('Glide sign key [%s] set successfully.', $key));
 
         return self::SUCCESS;
     }
@@ -33,10 +37,6 @@ class GlideKeyGenerate extends Command
     protected function getKeyFromEnvironmentFile(): string
     {
         if (! preg_match('/^GLIDE_SIGN_KEY=(.*)$/m', $this->envFileContent(), $matches)) {
-            return '';
-        }
-
-        if (! isset($matches[1])) {
             return '';
         }
 
@@ -64,16 +64,10 @@ class GlideKeyGenerate extends Command
     }
 
     /**
-     * Generate a random key for the application.
+     * Get the content of the environment file.
      */
     protected function envFileContent(): string
     {
-        static $current = null;
-
-        if ($current === null) {
-            $current = file_get_contents(base_path('.env'));
-        }
-
-        return $current;
+        return $this->envFileContent ??= file_get_contents(base_path('.env'));
     }
 }

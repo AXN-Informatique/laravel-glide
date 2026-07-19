@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axn\LaravelGlide\Responses;
 
 use League\Flysystem\FilesystemOperator;

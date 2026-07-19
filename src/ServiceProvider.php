@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axn\LaravelGlide;
 
 use Axn\LaravelGlide\Console\Commands\GlideKeyGenerate;
