@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Axn\LaravelGlide;
 
+use Axn\LaravelGlide\Console\Commands\GlideClear;
 use Axn\LaravelGlide\Console\Commands\GlideKeyGenerate;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Override;
@@ -16,11 +17,15 @@ class ServiceProvider extends BaseServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/glide.php', 'glide');
 
         $this->app->singleton('glide', fn ($app): ServerManager => new ServerManager($app));
+        $this->app->alias('glide', ServerManager::class);
     }
 
     public function boot(): void
     {
-        $this->commands([GlideKeyGenerate::class]);
+        $this->commands([
+            GlideClear::class,
+            GlideKeyGenerate::class,
+        ]);
 
         if ($this->app->runningInConsole()) {
             $this->configurePublishing();
