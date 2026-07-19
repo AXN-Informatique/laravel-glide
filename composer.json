@@ -1,30 +1,41 @@
 {
-    "name" : "axn/laravel-glide",
-    "description" : "league/glide wrapper for Laravel",
-    "homepage" : "https://github.com/AXN-Informatique/laravel-glide",
-    "support" : {
-        "issues" : "https://github.com/AXN-Informatique/laravel-glide/issues"
+    "name": "axn/laravel-glide",
+    "description": "league/glide wrapper for Laravel",
+    "homepage": "https://github.com/AXN-Informatique/laravel-glide",
+    "support": {
+        "issues": "https://github.com/AXN-Informatique/laravel-glide/issues"
     },
-    "authors" : [{
-            "name" : "AXN Informatique",
-            "email" : "developpement@axn.fr"
+    "authors": [{
+            "name": "AXN Informatique",
+            "email": "developpement@axn.fr"
         }
     ],
-    "license" : "MIT",
-    "require" : {
+    "license": "MIT",
+    "require": {
         "php": "^8.4",
-        "laravel/framework" : "^12.0 || ^13.0",
-        "league/glide-symfony" : "^2.0"
+        "laravel/framework": "^13.0",
+        "league/glide": "^4.1",
+        "symfony/http-foundation": "^8.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.29.3",
         "driftingly/rector-laravel": "^2.5.0",
+        "laravel/pint": "^1.29.3",
+        "orchestra/testbench": "^11.0",
+        "phpunit/phpunit": "^12.0",
         "rector/rector": "^2.5.7"
     },
-    "autoload" : {
-        "psr-4" : {
-            "Axn\\LaravelGlide\\" : "src/"
+    "autoload": {
+        "psr-4": {
+            "Axn\\LaravelGlide\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Axn\\LaravelGlide\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
     },
     "extra": {
         "laravel": {
