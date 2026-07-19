@@ -62,7 +62,7 @@ class GlideServer
      *
      * @throws InvalidArgumentException
      */
-    public function imageResponse(string $path, array $params = [])
+    public function imageResponse(string $path, array $params = []): mixed
     {
         $this->validateRequest($path, $params);
 

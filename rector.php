@@ -5,7 +5,7 @@ use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
 use Rector\Config\RectorConfig;
-use Rector\Php81\Rector\Array_\FirstClassCallableRector;
+use Rector\Php81\Rector\Array_\ArrayToFirstClassCallableRector;
 use RectorLaravel\Rector\FuncCall\RemoveDumpDataDeadCodeRector;
 use RectorLaravel\Rector\MethodCall\EloquentWhereRelationTypeHintingParameterRector;
 use RectorLaravel\Rector\MethodCall\EloquentWhereTypeHintClosureParameterRector;
@@ -44,7 +44,7 @@ return RectorConfig::configure()
         // Désactivation de cette règle car elle
         // transforme :     array_map('intval',
         // en :             array_map(intval(...),
-        FirstClassCallableRector::class,
+        ArrayToFirstClassCallableRector::class,
     ])
     ->withRules([
         EloquentWhereRelationTypeHintingParameterRector::class,
