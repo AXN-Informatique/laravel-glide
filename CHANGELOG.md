@@ -10,7 +10,11 @@ Changelog
 - LaravelResponseFactory now implements League\Glide\Responses\ResponseFactoryInterface directly
 - Minimum Laravel version increased to 13
 - Added per-server config options: group_cache_in_folders, cache_with_file_extensions, temp_dir
+- Added glide:clear command to clear the image cache of one or all servers
+- Added ServerManager container alias (enables type-hinted injection)
 - Fixed: an unknown server name now throws an InvalidArgumentException instead of an ErrorException
+- Fixed: glide:key-generate now appends GLIDE_SIGN_KEY to the .env file when the line is
+  missing (previously it reported success without writing anything)
 - Added test suite (PHPUnit + Orchestra Testbench)
 - Modernized code base for PHP 8.4 / Laravel 13: strict types everywhere, typed config access,
   first-class dynamic calls, facade @method annotations, array shape PHPDoc

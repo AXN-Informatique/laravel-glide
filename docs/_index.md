@@ -103,6 +103,15 @@ Les presets sont définis dans la config de chaque serveur :
 $url = Glide::url('photo.jpg', ['p' => 'small']);
 ```
 
+### Vider le cache
+
+```bash
+php artisan glide:clear           # tous les serveurs
+php artisan glide:clear images    # un serveur donné
+```
+
+La commande refuse d’agir si le serveur n’a pas de `cache_path_prefix` (le disque entier serait supprimé).
+
 Architecture
 ------------
 
@@ -123,3 +132,4 @@ graph TD
 | `GlideServer` | Wrapper autour de `League\Glide\Server` |
 | `LaravelResponseFactory` | Adapter pour les réponses HTTP Laravel |
 | `GlideKeyGenerate` | Commande Artisan `glide:key-generate` |
+| `GlideClear` | Commande Artisan `glide:clear` (vidage du cache) |
