@@ -1,13 +1,19 @@
 <?php
 
 return [
-    'source' => 'avatars',
+    'source' => 'local',
 
-    'source_path_prefix' => '/',
+    'source_path_prefix' => '/users/avatars',
 
-    'cache' => 'avatars',
+    'cache' => 'local',
 
-    'cache_path_prefix' => '/cache',
+    'cache_path_prefix' => '/users/avatars/.cache',
+
+    'group_cache_in_folders' => true,
+
+    'cache_with_file_extensions' => false,
+
+    'temp_dir' => null,
 
     'driver' => env('GLIDE_IMAGE_DRIVER', 'gd'),
 

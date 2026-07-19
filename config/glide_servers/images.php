@@ -5,26 +5,35 @@ return [
     // Source filesystem
     // can be the name of a disk in the filesystem
     // or the name of a driver supported by the filesystem
-    'source' => 'images',
+    'source' => 'local',
 
     // Source filesystem path prefix
-    'source_path_prefix' => '/',
+    'source_path_prefix' => '/images',
 
     // Cache filesystem
     // can be the name of a disk in the filesystem
     // or the name of a driver supported by the filesystem
-    'cache' => 'images',
+    'cache' => 'local',
 
     // Cache filesystem path prefix
-    'cache_path_prefix' => '/cache',
+    'cache_path_prefix' => '/images/.cache',
+
+    // Group cached images into subfolders per source image
+    'group_cache_in_folders' => true,
+
+    // Append the file extension to cached image paths
+    'cache_with_file_extensions' => false,
+
+    // Temporary directory used when reading EXIF data (null: system temp dir)
+    'temp_dir' => null,
 
     // Watermarks filesystem
     // can be the name of a disk in the filesystem
     // or the name of a driver supported by the filesystem
-    'watermarks' => 'images',
+    'watermarks' => 'local',
 
     // Watermarks filesystem path prefix
-    'watermarks_path_prefix' => '/watermarks',
+    'watermarks_path_prefix' => '/images/watermarks',
 
     // Image driver (gd or imagick)
     'driver' => env('GLIDE_IMAGE_DRIVER', 'gd'),
@@ -42,7 +51,7 @@ return [
     'base_url' => '/image',
 
     // Default image manipulations
-    // see https://glide.thephpleague.com/2.0/config/defaults-and-presets/
+    // see https://glide.thephpleague.com/4.0/config/defaults-and-presets/
     'defaults' => [
         'mark' => 'logo.png',
         'markw' => '30w',
@@ -50,7 +59,7 @@ return [
     ],
 
     // Preset image manipulations
-    // see https://glide.thephpleague.com/2.0/config/defaults-and-presets/
+    // see https://glide.thephpleague.com/4.0/config/defaults-and-presets/
     'presets' => [
         'small' => [
             'w' => 200,

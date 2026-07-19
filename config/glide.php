@@ -22,7 +22,7 @@ return [
     | Here you may configure as many server configuration as you wish.
     |
     | For each server you can define a Glide configuration.
-    | see https://glide.thephpleague.com/2.0/config/setup/
+    | see https://glide.thephpleague.com/4.0/config/setup/
     |
     | For convenience we have split into several files.
     |
