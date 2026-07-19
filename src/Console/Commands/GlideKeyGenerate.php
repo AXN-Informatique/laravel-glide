@@ -44,15 +44,23 @@ class GlideKeyGenerate extends Command
     }
 
     /**
-     * Set the given key in the environment file.
+     * Set the given key in the environment file, appending the line if it is missing.
      */
     protected function setKeyInEnvironmentFile(string $key): void
     {
-        file_put_contents(base_path('.env'), str_replace(
-            'GLIDE_SIGN_KEY='.$this->getKeyFromEnvironmentFile(),
-            'GLIDE_SIGN_KEY='.$key,
-            $this->envFileContent()
-        ));
+        $content = $this->envFileContent();
+
+        if (preg_match('/^GLIDE_SIGN_KEY=/m', $content)) {
+            $content = str_replace(
+                'GLIDE_SIGN_KEY='.$this->getKeyFromEnvironmentFile(),
+                'GLIDE_SIGN_KEY='.$key,
+                $content
+            );
+        } else {
+            $content .= ($content === '' || str_ends_with($content, "\n") ? '' : "\n").'GLIDE_SIGN_KEY='.$key."\n";
+        }
+
+        file_put_contents(base_path('.env'), $content);
     }
 
     /**
