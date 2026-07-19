@@ -45,6 +45,9 @@ Chaque serveur est configuré indépendamment avec :
 |--------|-------------|
 | `source` | Disk filesystem source des images |
 | `cache` | Disk filesystem pour le cache des images générées |
+| `group_cache_in_folders` | Regrouper le cache dans des sous-dossiers par image source |
+| `cache_with_file_extensions` | Ajouter l’extension de fichier aux chemins du cache |
+| `temp_dir` | Répertoire temporaire pour la lecture EXIF (null : dossier système) |
 | `watermarks` | Disk filesystem pour les filigranes (optionnel) |
 | `driver` | Driver image : `gd` ou `imagick` |
 | `max_image_size` | Taille maximale en pixels (largeur × hauteur) |
@@ -60,6 +63,8 @@ Chaque serveur est configuré indépendamment avec :
 |----------|-------------|
 | `GLIDE_IMAGE_DRIVER` | Driver image (`gd` ou `imagick`) |
 | `GLIDE_SIGN_KEY` | Clé de signature (128+ caractères) |
+
+Les options avancées de Glide 4 (`cache_path_callable`, `encoder`, driver en tableau d’options) peuvent être ajoutées telles quelles dans la config d’un serveur : elle est transmise sans transformation à `League\Glide\ServerFactory`.
 
 Utilisation
 -----------

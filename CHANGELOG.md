@@ -1,6 +1,19 @@
 Changelog
 =========
 
+4.0.0 (unreleased)
+------------------
+
+- Upgraded to Glide 4 (Intervention Image v4)
+- Replaced league/glide-symfony dependency by a direct league/glide ^4.1 dependency
+  (glide-symfony does not support Glide 4)
+- LaravelResponseFactory now implements League\Glide\Responses\ResponseFactoryInterface directly
+- Minimum Laravel version increased to 13
+- Added per-server config options: group_cache_in_folders, cache_with_file_extensions, temp_dir
+- Fixed: an unknown server name now throws an InvalidArgumentException instead of an ErrorException
+- Added test suite (PHPUnit + Orchestra Testbench)
+
+
 3.1.1 (2026-07-12)
 ------------------
 

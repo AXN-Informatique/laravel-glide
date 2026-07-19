@@ -1,6 +1,35 @@
 UPGRADE
 =======
 
+From version 3.x to version 4.x
+-------------------------------
+
+This package now requires **Laravel 13** and relies on **Glide 4** (Intervention Image v4)
+through a direct `league/glide` dependency; `league/glide-symfony` is no longer installed.
+
+The public API of the package is unchanged (`Glide` facade, `ServerManager`, `GlideServer`,
+`glide:key-generate`), but you should be aware of the following behavior changes inherited
+from Glide 4 / Intervention Image v4:
+
+- An invalid output format (e.g. `?fm=xxx`) now throws an `InvalidArgumentException`
+  instead of being silently ignored.
+- Watermark transparency (`markalpha`, still expressed in the 0-100 range) is now rendered
+  correctly with Intervention Image v4 (normalized internally by Glide) — do NOT convert
+  your values to 0-1.
+- New supported formats depending on the driver: HEIC, progressive JPEG (`fm=pjpg`).
+- If your application extended `Axn\LaravelGlide\Responses\LaravelResponseFactory` or
+  referenced `League\Glide\Responses\SymfonyResponseFactory`, note that the factory now
+  implements `League\Glide\Responses\ResponseFactoryInterface` directly.
+- If your application used the Intervention Image API directly, it must be migrated to
+  Intervention Image v4.
+
+Also note: requesting an unknown Glide server name now throws an `InvalidArgumentException`
+(previously an `ErrorException` "Undefined array key").
+
+New per-server config options are available (with Glide's defaults): `group_cache_in_folders`,
+`cache_with_file_extensions` and `temp_dir`. Advanced options (`cache_path_callable`,
+`encoder`, array driver options) can also be passed through the server config untouched.
+
 From version 2.x to version 3.x
 -------------------------------
 
