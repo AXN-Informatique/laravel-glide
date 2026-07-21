@@ -103,6 +103,25 @@ Les presets sont définis dans la config de chaque serveur :
 $url = Glide::url('photo.jpg', ['p' => 'small']);
 ```
 
+### Routes
+
+Le package fournit un contrôleur générique et un enregistreur de routes ; l’application (ou un package) reste maîtresse du contexte middleware puisque l’appel se fait depuis ses propres fichiers de routes :
+
+```php
+// routes/static/glide.php
+use Axn\LaravelGlide\Facades\Glide;
+
+Glide::routes();                // tous les serveurs
+Glide::routes(['images']);      // ou un sous-ensemble
+```
+
+Pour chaque serveur, une route `GET {base_url}/{path}` nommée `glide.{serveur}` est enregistrée.
+
+Points d’attention :
+
+- chaque serveur exposé doit avoir un `base_url` distinct (deux routes sur la même URI s’écrasent) ;
+- une signature invalide ou un fichier source absent produit une réponse 404.
+
 ### Vider le cache
 
 ```bash
@@ -131,5 +150,6 @@ graph TD
 | `ServerManager` | Gère les instances de serveurs, résout les disks |
 | `GlideServer` | Wrapper autour de `League\Glide\Server` |
 | `LaravelResponseFactory` | Adapter pour les réponses HTTP Laravel |
+| `GlideController` | Contrôleur générique des routes enregistrées par `Glide::routes()` |
 | `GlideKeyGenerate` | Commande Artisan `glide:key-generate` |
 | `GlideClear` | Commande Artisan `glide:clear` (vidage du cache) |

@@ -10,6 +10,9 @@ Changelog
 - LaravelResponseFactory now implements League\Glide\Responses\ResponseFactoryInterface directly
 - Minimum Laravel version increased to 13
 - Added per-server config options: group_cache_in_folders, cache_with_file_extensions, temp_dir
+- Added Glide::routes() and a generic invokable GlideController: applications and packages
+  can now register the image routes of their servers within their own middleware context
+  (route name glide.{server}); an invalid signature or a missing source file returns a 404
 - Added glide:clear command to clear the image cache of one or all servers
 - Added ServerManager container alias (enables type-hinted injection)
 - Fixed: an unknown server name now throws an InvalidArgumentException instead of an ErrorException
