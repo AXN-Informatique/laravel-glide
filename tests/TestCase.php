@@ -54,7 +54,7 @@ abstract class TestCase extends BaseTestCase
             'max_image_size' => 2000 * 2000,
             'signatures' => true,
             'sign_key' => self::SIGN_KEY,
-            'base_url' => '/image',
+            'base_url' => '/signed-image',
             'defaults' => [],
             'presets' => [],
         ]);
@@ -88,7 +88,6 @@ abstract class TestCase extends BaseTestCase
         $image = imagecreatetruecolor($width, $height);
         imagefilledrectangle($image, 0, 0, $width - 1, $height - 1, (int) imagecolorallocate($image, 200, 50, 50));
         imagepng($image, $this->glidePath('source').'/'.$name);
-        imagedestroy($image);
 
         return $name;
     }

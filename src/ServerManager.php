@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Axn\LaravelGlide;
 
+use Axn\LaravelGlide\Http\Controllers\GlideController;
 use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;
 
@@ -40,6 +41,34 @@ class ServerManager
         }
 
         return $this->servers[$name];
+    }
+
+    /**
+     * Register a generic image route for each given server (all servers if omitted).
+     *
+     * The routes are registered where this method is called from, so the caller
+     * keeps full control of the middleware context (routes files, groups...).
+     *
+     * @param  array<int, string>|null  $servers
+     */
+    public function routes(?array $servers = null): void
+    {
+        $config = $this->app->make('config');
+        $router = $this->app->make('router');
+
+        $servers ??= array_keys($config->array('glide.servers'));
+
+        foreach ($servers as $name) {
+            $baseUrl = $config->string(\sprintf('glide.servers.%s.base_url', $name));
+
+            $router
+                ->get(rtrim((string) $baseUrl, '/').'/{path}', GlideController::class)
+                ->name('glide.'.$name)
+                ->where('path', '.*')
+                ->defaults('server', $name);
+        }
+
+        $router->getRoutes()->refreshNameLookups();
     }
 
     /**

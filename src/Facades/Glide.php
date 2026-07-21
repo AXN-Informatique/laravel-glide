@@ -11,6 +11,7 @@ use League\Glide\Server;
 
 /**
  * @method static GlideServer server(?string $name = null)
+ * @method static void routes(?array $servers = null)
  * @method static string url(string $path, array $params = [])
  * @method static mixed imageResponse(string $path, array $params = [])
  * @method static string imageAsBase64(string $path, array $params = [])
