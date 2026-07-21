@@ -120,7 +120,8 @@ Pour chaque serveur, une route `GET {base_url}/{path}` nommée `glide.{serveur}`
 Points d’attention :
 
 - chaque serveur exposé doit avoir un `base_url` distinct (deux routes sur la même URI s’écrasent) ;
-- une signature invalide ou un fichier source absent produit une réponse 404.
+- une signature invalide ou un fichier source absent produit une réponse 404 ;
+- quand des packages déclarent leurs propres serveurs dans `glide.servers` (laravel-news par exemple), passer un sous-ensemble explicite — `Glide::routes(['images', 'avatars'])` — pour ne pas écraser les routes qu’ils enregistrent eux-mêmes.
 
 ### Vider le cache
 
