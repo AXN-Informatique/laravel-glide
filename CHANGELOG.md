@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.0 (unreleased)
+4.0.0 (2026-07-22)
 ------------------
 
 - Upgraded to Glide 4 (Intervention Image v4)
