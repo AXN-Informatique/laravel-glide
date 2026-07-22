@@ -1,6 +1,12 @@
 Changelog
 =========
 
+4.0.1 (2026-07-22)
+------------------
+
+- Republished release: the 4.0.0 tag was pointing to the 3.1.1 code
+
+
 4.0.0 (2026-07-22)
 ------------------
 
